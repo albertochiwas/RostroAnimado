@@ -36,11 +36,13 @@ public class EyeDShape extends DynShape { //.6
       rotate(BANG); // angulo de giro
       translate(-V4X,-V4Y);
       fill(filler);
-      shape.draw(); //.8
+      stroke(0); //.9
+      shape.draw(); //.8 Parpados
       RPolygon circle = RShape.createCircle(eyeX, V4Y, radius).toPolygon(); //.8
       circle = circle.intersection(shape); //.8
       fill(col);
-      circle.draw(); //.8
+      noStroke(); //.9
+      circle.draw(); //.8 Iris & pupila
       float r = radius / 3.0;
       if (tall < r) { //.7
         r = tall;
