@@ -34,9 +34,9 @@ void setup() {
   RG.init(this); //.8
   alien = loadImage("greenAlien.jpg"); //.5  
   boca  = new MouthDShape(100, 155, 90, 30, 3); //.6
-  eye1  = new EyeDShape( 99, 128, 36, 18, -25); //.6
-  eye2  = new EyeDShape(157, 104, 36, 18,   0); //.6
-  eye3  = new EyeDShape(220, 100, 36, 18,  27); //.6
+  eye1  = new EyeDShape(104, 124, 32, 18, -25); //.6
+  eye2  = new EyeDShape(164, 104, 32, 18,   0); //.6
+  eye3  = new EyeDShape(226, 102, 32, 18,  27); //.6
 }
 
 
