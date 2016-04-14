@@ -22,6 +22,7 @@ public class MouthDShape extends DynShape { //.9
     float x = map(mx,0,width,V1D1,V1D2); //.5
     tall = map(y,0,height,0,1.2*BH); //.7
     init(); //.6
+    float x0 = vert[0].x; //.9 FIX 
     vert[0].x = x; //.1
     vert[0].y = V4Y - tall; //.1.8 Apertura de la boca
     x = map(tall,0,BH,0,BW/4); // open mouth effect: higher y, lower x
@@ -38,8 +39,8 @@ public class MouthDShape extends DynShape { //.9
         new RPoint(vert[3].x+BW/12.0, vert[3].y-BH/8.0),
         new RPoint(vert[0].x, vert[0].y-BH/8.0),
         new RPoint(vert[1].x-BW/12.0, vert[1].y-BH/8.0),
-        new RPoint(vert[0].x+BW/4.0, vert[0].y+offset),
-        new RPoint(vert[0].x-BW/4.0, vert[0].y+offset) });
+        new RPoint(x0+BW/4.0, vert[0].y+offset),
+        new RPoint(x0-BW/4.0, vert[0].y+offset) });
       if (offset > 8.0) { //.9 activar lengua?
         float cy = vert[2].y - map(offset,0.1,BH,-2.5*offset,1.8*offset);
         RPolygon p = RShape.createEllipse(vert[2].x-BW*0.15,cy,BW*0.45,BH).toPolygon();
