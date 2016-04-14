@@ -1,5 +1,5 @@
 /*
-  EyeDShape.pde - Variation of DynShape (mouth)
+  EyeDShape.pde - Variation of DynShape (eyes)
   0.8 31/03/16 geomerative lib: RPoint & RPolygon; RPolygon.intersection(RPolygon)  
 */
 

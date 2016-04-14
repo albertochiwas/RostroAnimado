@@ -117,6 +117,7 @@ public class DynShape { //.6
       translate(V4X,V4Y);
       rotate(BANG); // angulo de giro
       translate(-V4X,-V4Y);
+    fill(filler);
     shape.draw(); //.8
     popMatrix();
   }

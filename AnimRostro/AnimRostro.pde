@@ -1,5 +1,5 @@
 /*
-  Boca2.pde
+  AnimRostro.pde
   
   Pixar's inspired mouth smooth curve from a basic polygon (array to shape vertex)
   By Alberto Pacheco (alberto@acm.org) @beto0303
@@ -23,8 +23,8 @@ int clicks = 1;
 int lowest = 100; //.6
 
 PImage   alien; //.5 Imagen
-DynShape boca;  //.6 Mouth
-EyeDShape eye1, eye2, eye3;  //.6 Eyes
+MouthDShape boca;  //.6 Mouth
+EyeDShape   eye1, eye2, eye3;  //.6 Eyes
 
 
 void setup() {
@@ -33,7 +33,7 @@ void setup() {
 //  frameRate(30);
   RG.init(this); //.8
   alien = loadImage("greenAlien.jpg"); //.5  
-  boca  = new DynShape( 100, 155, 90, 30,   3); //.6
+  boca  = new MouthDShape(100, 155, 90, 30, 3); //.6
   eye1  = new EyeDShape( 99, 128, 36, 18, -25); //.6
   eye2  = new EyeDShape(157, 104, 36, 18,   0); //.6
   eye3  = new EyeDShape(220, 100, 36, 18,  27); //.6
