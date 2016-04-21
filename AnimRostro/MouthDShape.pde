@@ -25,22 +25,23 @@ public class MouthDShape extends DynShape { //.9
     float x0 = vert[0].x; //.9 FIX 
     vert[0].x = x; //.1
     vert[0].y = V4Y - tall; //.1.8 Apertura de la boca
-    x = map(tall,0,BH,0,BW/4); // open mouth effect: higher y, lower x
-    vert[1].x = V2X - x; //.2  
+//    vert[2].x = x; //.94 BUG
     vert[2].y = V4Y + tall; //.3.8
+    x = map(tall,0,BH,0,BW*0.5); // open mouth effect: higher y, lower x
+    vert[1].x = V2X - x; //.2  
     vert[3].x = V4X + x; //.4
-    dientes = null;
-    lengua = null;
+    dientes = null; //.9
+    lengua = null;  //.9
     float offset = map(tall,0,BH,0.0,1.25*BH/2.0); //.9 Calcula parte visible
-    if (offset < 4.0) { //.9 Dentadura no es visible?
-      offset = 0.0;
+    if (offset < 4.5) { //.9 Dentadura no es visible?
+      offset = 0.0; // eliminar dientes
     } else { //.9 Dentadura visible
       dientes = new RPolygon(new RPoint[] { //.9 Dentadura como polígono
-        new RPoint(vert[3].x+BW/12.0, vert[3].y-BH/8.0),
+        new RPoint(vert[3].x-BW/16.0, vert[3].y-BH/8.0), // extremo der
         new RPoint(vert[0].x, vert[0].y-BH/8.0),
-        new RPoint(vert[1].x-BW/12.0, vert[1].y-BH/8.0),
-        new RPoint(x0+BW/4.0, vert[0].y+offset),
-        new RPoint(x0-BW/4.0, vert[0].y+offset) });
+        new RPoint(vert[1].x+BW/16.0, vert[1].y-BH/8.0), // extremo izq
+        new RPoint(x0+BW/6.0, vert[0].y+offset),
+        new RPoint(x0-BW/6.0, vert[0].y+offset) });
       if (offset > 8.0) { //.9 activar lengua?
         float cy = vert[2].y - map(offset,0.1,BH,-2.5*offset,1.8*offset);
         RPolygon p = RShape.createEllipse(vert[2].x-BW*0.15,cy,BW*0.45,BH).toPolygon();
@@ -64,12 +65,14 @@ public class MouthDShape extends DynShape { //.9
         fill(blanco);
         noStroke();
         dentadura.draw(); //.9
+//        dientes.draw(); // DEBUG
         if (lengua != null) { //.9 lengua visible?
           RPolygon tongue = lengua.intersection(shape);
 //          if (tongue != null) { //.9
             fill(rojo);
             noStroke();
             tongue.draw(); //.9
+//              lengua.draw(); // DEBUG
 //          }
         }
       }
