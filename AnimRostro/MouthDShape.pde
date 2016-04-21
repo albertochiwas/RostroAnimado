@@ -60,13 +60,14 @@ public class MouthDShape extends DynShape { //.9
       fill(filler);
       stroke(0);
       shape.draw(); //.8 Dibuja labios boca
-      if (dientes != null) { //.9 OPT: Dentadura visible?
+      if (dientes!=null && swDiente) { //.9.95 OPT: Dentadura visible?
         RPolygon dentadura = dientes.intersection(shape); //.9 Parte visible de dentadura
         fill(blanco);
         noStroke();
         dentadura.draw(); //.9
 //        dientes.draw(); // DEBUG
-        if (lengua != null) { //.9 lengua visible?
+      }
+      if (lengua!=null && swLengua) { //.9.95 lengua visible?
           RPolygon tongue = lengua.intersection(shape);
 //          if (tongue != null) { //.9
             fill(rojo);
@@ -74,7 +75,6 @@ public class MouthDShape extends DynShape { //.9
             tongue.draw(); //.9
 //              lengua.draw(); // DEBUG
 //          }
-        }
       }
     popMatrix();
   } 

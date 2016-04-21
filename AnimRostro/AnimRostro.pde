@@ -21,6 +21,8 @@ import geomerative.*;
 
 int clicks = 1;
 int lowest = 100; //.6
+boolean swLengua = true; //.95 on/off lengua
+boolean swDiente = true; //.95 on/off dentadura
 
 PImage   alien; //.5 Imagen
 MouthDShape boca;  //.6 Mouth
@@ -68,3 +70,13 @@ void mouseClicked() { //.5
     lowest = round(frameRate);
   }
 }
+
+
+void keyPressed() {
+  if ( key=='L' || key=='l') { //.95 on/off lengua
+    swLengua = !swLengua; // toggle
+  } else if ( key=='D' || key=='d') { //.95 on/off dientes
+    swDiente = !swDiente; // toggle
+  }  
+}
+
