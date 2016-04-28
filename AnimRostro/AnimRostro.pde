@@ -20,8 +20,8 @@
 import geomerative.*; //.8 Polígonos
 import ddf.minim.*;   //.96 Sonido
 
-int clicks = 1;
-int lowest = 100; //.6
+int clicks = 1; // subdivision loop counter
+int avg; //.6.97 avg frame rate
 boolean swLengua = true; //.95 on/off lengua
 boolean swDiente = true; //.95 on/off dentadura
 
@@ -31,12 +31,12 @@ EyeDShape eye1, eye2, eye3;  //.6 Eyes
 
 Minim minim; //.96 library
 AudioInput mic; //.96 microphone
-boolean swSonido = false; // on/off mic
+boolean swSonido = false; //.96 on/off mic
 
 void setup() {
   size(400,400,P2D);
-  smooth();
-  frameRate(30);
+//  smooth();
+//  frameRate(30);
   RG.init(this); //.8
   alien = loadImage("greenAlien.jpg"); //.5  
   boca  = new MouthMicShape(100, 155, 90, 30, 3); //.6.96
@@ -47,29 +47,31 @@ void setup() {
   //.96 Inic sonido
   minim = new Minim(this); //.96
   mic = minim.getLineIn();  //.96
+  boca.setGain(2.0); //.97 adjust mic sensitivity here
+  
+  avg = round(frameRate); //.97
 }
 
 void draw() {
   image(alien,0,0); //.5 //<>//
-  if ( mouseX!=pmouseX || mouseY!=pmouseY) {
+//  if ( mouseX!=pmouseX || mouseY!=pmouseY) { //.97 BUG
     boca.update(mouseX, mouseY, clicks); //.7.96
-//    boca.update(mic, clicks); //.96 indicar método p/mover labios
     eye1.update(mouseX, mouseY, clicks);
     eye2.update(mouseX, mouseY, clicks);
     eye3.update(mouseX, mouseY, clicks);
-  }
+//  } //.97
   text(clicks,320,40);
   int fr = round(frameRate);
   text(fr,350,40); //.5 frames per second
-  if (frameCount>60 && fr<lowest) { //.6 report lower framerate
-    lowest = fr;
+  if (abs(avg-fr)>2) { //.97 stabilize avg range
+    avg = floor(float(avg + fr)/2.0); //.97 average frame rate
   }
-  text(lowest,350,60);
+  text(avg,350,60);
   boca.draw(); //.6
   eye1.draw(); //.6
   eye2.draw(); //.6
   eye3.draw(); //.6
-  if (swSonido) {
+  if (swSonido) { //.96 record icon
     fill(200,0,0);  
     ellipse(324,55,12,12);
   }
@@ -78,7 +80,7 @@ void draw() {
 void mouseClicked() { //.5
   if (clicks < 4) {
     ++clicks;
-    lowest = round(frameRate);
+    avg = round(frameRate);
   }
 }
 
@@ -92,11 +94,7 @@ void keyPressed() {
       break;
     case 'S': case 's': case 'M': case 'm':  //.96 on/off mic
       swSonido = !swSonido; // toggle
-      if (swSonido) { //.96 activa mic
-        boca.entrada(mic); 
-      } else {
-        boca.entrada(null);
-      }  
+      boca.setInput(swSonido? mic : null); //.96.97
       break;
   }
 }

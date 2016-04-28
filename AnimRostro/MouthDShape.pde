@@ -24,7 +24,6 @@ public class MouthDShape extends DynShape { //.9
   }
 
   protected void _update(int mx, int y, int times) { //.7.96
-//    tall = map(y,0,height,0,1.2*BH); //.7
     float x = map(mx,0,width,V1D1,V1D2); //.5
     init(); //.6
     float x0 = vert[0].x; //.9 FIX 
@@ -32,7 +31,7 @@ public class MouthDShape extends DynShape { //.9
     vert[0].y = V4Y - tall; //.1.8 Apertura de la boca
 //    vert[2].x = x; //.94 BUG
     vert[2].y = V4Y + tall; //.3.8
-    x = map(tall,0,BH,0,BW*0.5); // open mouth effect: higher y, lower x
+    x = map(tall,0,BH,0,BW*0.6); // open mouth effect: higher y, lower x
     vert[1].x = V2X - x; //.2  
     vert[3].x = V4X + x; //.4
     dientes = null; //.9
