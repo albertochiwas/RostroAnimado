@@ -18,9 +18,14 @@ public class MouthDShape extends DynShape { //.9
     lengua = null; //.9
   }
 
-  public void update(int mx, int y, int times) { //.9
+  public void update(int mx, int y, int times) { //.7.96
+    tall = map(y,0,height,0,1.2*BH); //.7.96
+    _update(mx,y,times); //.7.96
+  }
+
+  protected void _update(int mx, int y, int times) { //.7.96
+//    tall = map(y,0,height,0,1.2*BH); //.7
     float x = map(mx,0,width,V1D1,V1D2); //.5
-    tall = map(y,0,height,0,1.2*BH); //.7
     init(); //.6
     float x0 = vert[0].x; //.9 FIX 
     vert[0].x = x; //.1
@@ -79,3 +84,4 @@ public class MouthDShape extends DynShape { //.9
     popMatrix();
   } 
 } // class
+
