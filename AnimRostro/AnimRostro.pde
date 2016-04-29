@@ -12,9 +12,10 @@
   
   Directions: move mouse cursor around drawing and box deformation produces a smooth ellipse inside
   
-  Pdte: 
+  To Do: 
   - SVG Image pivots
-  - Parametrizar secciones y tamaño de la boca
+  - Cejas
+  - Parpadeo
 */
 
 import geomerative.*; //.8 Polígonos
@@ -33,7 +34,8 @@ Minim minim; //.96 library
 AudioInput mic; //.96 microphone
 boolean swSonido = false; //.96 on/off mic
 
-void setup() {
+void setup()
+{
   size(400,400,P2D);
 //  smooth();
 //  frameRate(30);
@@ -43,7 +45,6 @@ void setup() {
   eye1  = new EyeDShape(104, 124, 32, 18, -25); //.6
   eye2  = new EyeDShape(164, 104, 32, 18,   0); //.6
   eye3  = new EyeDShape(226, 102, 32, 18,  27); //.6
-  
   //.96 Inic sonido
   minim = new Minim(this); //.96
   mic = minim.getLineIn();  //.96
@@ -52,14 +53,15 @@ void setup() {
   avg = round(frameRate); //.97
 }
 
-void draw() {
-  image(alien,0,0); //.5 //<>//
-//  if ( mouseX!=pmouseX || mouseY!=pmouseY) { //.97 BUG
-    boca.update(mouseX, mouseY, clicks); //.7.96
+void draw()
+{
+  image(alien,0,0); //.5
+  boca.update(mouseX, mouseY, clicks); //.7.96
+  if ( mouseX!=pmouseX || mouseY!=pmouseY ) { // OPT
     eye1.update(mouseX, mouseY, clicks);
     eye2.update(mouseX, mouseY, clicks);
     eye3.update(mouseX, mouseY, clicks);
-//  } //.97
+  }
   text(clicks,320,40);
   int fr = round(frameRate);
   text(fr,350,40); //.5 frames per second
@@ -77,14 +79,16 @@ void draw() {
   }
 }
 
-void mouseClicked() { //.5
+void mouseClicked() //.5
+{
   if (clicks < 4) {
     ++clicks;
     avg = round(frameRate);
   }
 }
 
-void keyPressed() {
+void keyPressed()
+{
   switch (key) { //.9 verif tecla
     case 'L': case 'l': //.95 on/off lengua
       swLengua = !swLengua; // toggle

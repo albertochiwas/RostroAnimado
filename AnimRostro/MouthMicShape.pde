@@ -1,3 +1,16 @@
+/*
+  MouthMicShape.pde: Boca con entrada de micrófono
+  
+  .96 27/04/16 - Minim Lib para lectura de señal de voz
+  
+  To Do:
+    - Detectar Frecuencia central
+    - Filtro PasaBanda c/frec central
+    - Detectar vocales
+    - Reconocer fonemas
+  
+*/
+
 import ddf.minim.*;   //.96 Sonido
 
 public class MouthMicShape extends MouthDShape { //.96 mic input controlled mouth class
@@ -31,7 +44,7 @@ public class MouthMicShape extends MouthDShape { //.96 mic input controlled mout
     } else { //.96 mic off
       tall = map(y,0,height,0,1.2*BH); //.7
     }
-    super._update(mx,y,times);  // cont'd update original  
+    super._update(mx,y,times);  //.96 cont'd update original  
   }
   
 } // class
