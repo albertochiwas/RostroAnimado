@@ -16,12 +16,14 @@ import ddf.minim.*;   //.96 Sonido
 public class MouthMicShape extends MouthDShape { //.96 mic input controlled mouth class
 
   AudioInput mic; //.96 microphone
+  MidFreq voz; //.98
   float gain; //.97 amplitude multiplier factor
 
   public MouthMicShape(int x, int y, int w, int h, int ang) {
     super(x,y,w,h,ang);
     mic = null; //.96
     gain = 1.0; //.97
+    voz = new MidFreq(); //.98
   }
   
   public void setInput(AudioInput m) { //.96.97 audio signal object
@@ -39,7 +41,13 @@ public class MouthMicShape extends MouthDShape { //.96 mic input controlled mout
         stroke(0);
         line( i, 350 + mic.mix.get(i)*50, i+1, 350 + mic.mix.get(i+1)*50 ); //.97
       }
-      tall = map( mic.mix.level() * gain,0.0,1.0,0,1.2*BH); //.5.97 RMS value
+      PVector fm = voz.getFreq(); //.98
+      if ( fm.x > 0 ) { //.98 fm.x = freq central voz
+//        tall = map( mic.mix.level() * gain,0.0,1.0,0,1.2*BH); //.5.97 RMS value
+        tall = map(constrain(fm.y,0.0,200.0),0.0,300.0,0,1.2*BH); //.5.97.98 fm.y=vox energy
+      } else { //.98
+        tall = 0; // no es voz
+      }
 //      println(tall);
     } else { //.96 mic off
       tall = map(y,0,height,0,1.2*BH); //.7

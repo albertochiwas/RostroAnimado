@@ -30,7 +30,7 @@ PImage alien; //.5 Imagen
 MouthMicShape boca;  //.6.96 Mouth
 EyeDShape eye1, eye2, eye3;  //.6 Eyes
 
-Minim minim; //.96 library
+Minim minim = null; //.96 library
 AudioInput mic; //.96 microphone
 boolean swSonido = false; //.96 on/off mic
 
