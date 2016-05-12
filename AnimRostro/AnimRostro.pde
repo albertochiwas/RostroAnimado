@@ -100,6 +100,9 @@ void keyPressed()
       swSonido = !swSonido; // toggle
       boca.setInput(swSonido? mic : null); //.96.97
       break;
+    case 'R': case 'r': //.98 report voice data
+      boca.report(); // toggle
+      break;
   }
 }
 

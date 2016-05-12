@@ -28,12 +28,12 @@ import ddf.minim.*;
 
 //Minim  minim = null;
 
-final int fCent = 320; // SET HERE CENTRAL FREQ (USER VOICE PITCH)
+final int fCent = 320; // 320 SET HERE CENTRAL FREQ (USER VOICE PITCH)
 final int fMin = fCent - 120; // 210
 final int fMax = fCent + 200; // 450
 final int TOP = 5; // No. Freq Candidato con mayor nivel
 final float LowestValue = 8.5; // Lowest energy cutoff
-final float MinEnergy = 132.0; // Min. Energy (suma)
+final float MinEnergy = 120.0; // Min. Energy (suma)
 
 
 class MidFreq
@@ -49,7 +49,7 @@ class MidFreq
    fft = new FFT( mic.bufferSize(), mic.sampleRate() );  
  }
  
- public PVector getFreq() { //1
+ public PVector getFreq() { // return: x=prom freq, y=energia total, z=freq +intensa @muestra=TOP=5 freq +altas
     fft.forward( mic.mix );
     IntDict DBMax = new IntDict();
     for (int i=0; i < fft.specSize(); i++) { //2

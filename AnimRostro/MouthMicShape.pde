@@ -13,6 +13,9 @@
 
 import ddf.minim.*;   //.96 Sonido
 
+float Mn=700.0, Mx=100.0, Sum=0.0, N=0.0; 
+
+
 public class MouthMicShape extends MouthDShape { //.96 mic input controlled mouth class
 
   AudioInput mic; //.96 microphone
@@ -44,7 +47,13 @@ public class MouthMicShape extends MouthDShape { //.96 mic input controlled mout
       PVector fm = voz.getFreq(); //.98
       if ( fm.x > 0 ) { //.98 fm.x = freq central voz
 //        tall = map( mic.mix.level() * gain,0.0,1.0,0,1.2*BH); //.5.97 RMS value
-        tall = map(constrain(fm.y,0.0,200.0),0.0,300.0,0,1.2*BH); //.5.97.98 fm.y=vox energy
+        float t = fm.y;
+        if (t<Mn) { Mn=t; }
+        if (t>Mx) { Mx=t; }
+        Sum += t;  N += 1.0;
+// LINEAL        tall = map(constrain(fm.y,100.0,700.0),100.0,700.0,0,1.2*BH); //.5.97.98 fm.y=vox energy
+        float ang = map(fm.y,MinEnergy,700,0,HALF_PI); //.985
+        tall = sin(ang)*1.2*BH; //.985 Apertura no-lineal (seno)
       } else { //.98
         tall = 0; // no es voz
       }
@@ -54,6 +63,14 @@ public class MouthMicShape extends MouthDShape { //.96 mic input controlled mout
     }
     super._update(mx,y,times);  //.96 cont'd update original  
   }
+  
+  public void report() {
+    println("Min="+Mn);
+    println("Max="+Mx);
+    println("Avg="+(Sum/N));
+    Sum = N = 0.0;
+    Mn = 700.0; Mx = 100.0;
+  }    
   
 } // class
 
