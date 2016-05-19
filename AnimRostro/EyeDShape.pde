@@ -10,6 +10,8 @@ public class EyeDShape extends DynShape { //.6
   float eyeX;
   color col;
   int radius;
+  
+  int  eyeLid; //.986
 
   public EyeDShape(int x, int y, int w, int h, int ang) {
     super(x,y,w,h,ang);
@@ -17,9 +19,19 @@ public class EyeDShape extends DynShape { //.6
     filler = color(255,255,255);
     col = color(100,200,250);
     radius = h;
+    eyeLid = 0; //.986
   }
 
   public void setColor(color c) { col = c; } //.6  
+  
+  public void blink_close() { //.986
+     this.eyeLid = height; // save apertura parpado
+     this.update(round(this.eyeX),0,3); // cerrar parpado
+  }
+  
+  public void blink_open() { //.986
+     this.update(round(this.eyeX),this.eyeLid,3); // cerrar parpado
+  }
   
   public void update(int mx, int y, int times) { //.6 move eye
     eyeX = map(mx,0,width,V1D1,V1D2);
@@ -31,7 +43,7 @@ public class EyeDShape extends DynShape { //.6
   }
 
   public void draw() {
-     pushMatrix(); //.5 GIRO BOCA
+     pushMatrix(); //.5 GIRO
       translate(V4X,V4Y);
       rotate(BANG); // angulo de giro
       translate(-V4X,-V4Y);

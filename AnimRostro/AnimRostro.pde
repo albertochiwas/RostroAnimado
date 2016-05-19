@@ -33,6 +33,11 @@ EyeDShape eye1, eye2, eye3;  //.6 Eyes
 Minim minim = null; //.96 library
 AudioInput mic; //.96 microphone
 boolean swSonido = false; //.96 on/off mic
+int FlickClose = 0; //.986 Parpadeo
+int FlickOpen = 0; //.986 Parpadeo
+int FLICK_RATE = 2000; //.986 Frecuencia Parpadeo
+int FLICK_DELAY = 80; //.986 Parpadeo (latency)
+
 
 void setup()
 {
@@ -49,7 +54,8 @@ void setup()
   minim = new Minim(this); //.96
   mic = minim.getLineIn();  //.96
   boca.setGain(2.0); //.97 adjust mic sensitivity here
-  
+  FlickClose = FLICK_RATE; //.986
+  FlickOpen  = FlickClose + FLICK_DELAY; //.986
   avg = round(frameRate); //.97
 }
 
@@ -57,6 +63,14 @@ void draw()
 {
   image(alien,0,0); //.5
   boca.update(mouseX, mouseY, clicks); //.7.96
+  int tms = millis(); //.986
+  if ( tms >= FlickClose ) {//.986 Cerrar ojos
+    eye2.blink_close();
+    FlickClose += FLICK_RATE;
+  } else if ( tms >= FlickOpen ) { //.986 Abrir ojos
+    eye2.blink_open();
+    FlickOpen += FLICK_RATE;    
+  }
   if ( mouseX!=pmouseX || mouseY!=pmouseY ) { // OPT
     eye1.update(mouseX, mouseY, clicks);
     eye2.update(mouseX, mouseY, clicks);
