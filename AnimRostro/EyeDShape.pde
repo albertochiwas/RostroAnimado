@@ -9,9 +9,11 @@ public class EyeDShape extends DynShape { //.6
 
   float eyeX;
   color col;
-  int radius;
+  int   radius;
   
-  int  eyeLid; //.986
+  int   eyeLid; //.986 Altura del parpado antes de cerrar el ojo (coord. mouse)
+  int   coordY; //.986 Almacena valor anterior del mouseY en cada update()
+  float propY;  //.987 Fracción entre 0 y 1.0, grado abre/cierra parpado
 
   public EyeDShape(int x, int y, int w, int h, int ang) {
     super(x,y,w,h,ang);
@@ -20,20 +22,37 @@ public class EyeDShape extends DynShape { //.6
     col = color(100,200,250);
     radius = h;
     eyeLid = 0; //.986
+    propY = 1.0; //.987
   }
 
   public void setColor(color c) { col = c; } //.6  
   
-  public void blink_close() { //.986
-     this.eyeLid = height; // save apertura parpado
-     this.update(round(this.eyeX),0,3); // cerrar parpado
+  public void blink_close(boolean first) { //.986
+     if (first) { //.987 valor inicial de cierre
+         propY = 1.0;
+         this.eyeLid = this.coordY; // save apertura parpado
+     }
+     this.update(round(this.eyeX),round(this.eyeLid*this.propY),3); // cerrar parpado
+     this.propY -= 0.25;
+     if (this.propY < 0.0) {
+       this.propY = 0.0;
+     }
   }
   
-  public void blink_open() { //.986
-     this.update(round(this.eyeX),this.eyeLid,3); // cerrar parpado
+  public void blink_open(boolean first) { //.986
+     if (first) { //.987 valor inicial de apertura
+         propY = 0.0;
+     }
+     this.update(round(this.eyeX),round(this.eyeLid*this.propY),3); // cerrar parpado
+     this.propY += 0.25;
+     if (this.propY > 1.0) {
+       this.propY = 1.0;
+     }
+     println(this.propY);
   }
   
   public void update(int mx, int y, int times) { //.6 move eye
+    coordY = y; //.986
     eyeX = map(mx,0,width,V1D1,V1D2);
     tall = map(y,0,height,0,BH); //.7
     init(); //.6(BUG) Regenerate shape

@@ -65,11 +65,21 @@ void draw()
   boca.update(mouseX, mouseY, clicks); //.7.96
   int tms = millis(); //.986
   if ( tms >= FlickClose ) {//.986 Cerrar ojos
-    eye2.blink_close();
-    FlickClose += FLICK_RATE;
+    boolean startClose = (tms == FlickClose); //.987
+    eye1.blink_close(startClose);
+    eye2.blink_close(startClose);
+    eye3.blink_close(startClose);
+//    if (startClose) {
+      FlickClose += FLICK_RATE;
+//    }
   } else if ( tms >= FlickOpen ) { //.986 Abrir ojos
-    eye2.blink_open();
-    FlickOpen += FLICK_RATE;    
+    boolean startOpen = (tms == FlickOpen); //.987
+    eye1.blink_open(startOpen);
+    eye2.blink_open(startOpen);
+    eye3.blink_open(startOpen);
+//    if (startOpen) {
+      FlickOpen += FLICK_RATE;
+//    }
   }
   if ( mouseX!=pmouseX || mouseY!=pmouseY ) { // OPT
     eye1.update(mouseX, mouseY, clicks);
